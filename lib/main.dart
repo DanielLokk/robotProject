@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'joystick.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Center(
           child: Column(
-            children: [],
+            children: [JoyStick()],
           ),
         ),
       ),
