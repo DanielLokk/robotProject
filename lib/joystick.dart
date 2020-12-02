@@ -6,13 +6,19 @@ class JoyStick extends StatefulWidget {
 }
 
 class _JoyStickState extends State<JoyStick> {
+  /* offset of the X axis. it's used to determine the position 
+  of the joystick horizontally */
   double xOffset = 0;
+
+  /* offset of the Y axis. it's used to determine the position 
+  of the joystick vertically */
   double yOffset = 75;
 
   @override
   Widget build(BuildContext context) {
+    /* container that sets the limit of the gesture box */
     return Container(
-      decoration: BoxDecoration(color: Colors.amberAccent),
+      decoration: BoxDecoration(color: Colors.grey),
       height: 200,
       width: 200,
       child: GestureDetector(
@@ -25,6 +31,7 @@ class _JoyStickState extends State<JoyStick> {
             }
           });
         },
+        /* when the user drag ends, the position is set to origin */
         onVerticalDragEnd: (details) {
           setState(() {
             yOffset = 75;
@@ -36,7 +43,10 @@ class _JoyStickState extends State<JoyStick> {
             Positioned(
               top: yOffset,
               left: 70,
-              child: FloatingActionButton(onPressed: () {}),
+              child: FloatingActionButton(
+                onPressed: () {},
+                elevation: 5,
+              ),
             ),
           ],
         ),
