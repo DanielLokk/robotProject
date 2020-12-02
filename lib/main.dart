@@ -21,9 +21,17 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Scaffold(
-        body: Center(
-          child: Column(
-            children: [JoyStick()],
+        /* container to align on the bottom  */
+        body: Container(
+          alignment: Alignment.bottomCenter,
+          child: Row(
+            children: [
+              /* maybe this needs to be changed later for responsiveness */
+              Padding(padding: EdgeInsets.only(left: 160)),
+              JoyStick(),
+              Padding(padding: EdgeInsets.symmetric(horizontal: 100)),
+              JoyStick(),
+            ],
           ),
         ),
       ),

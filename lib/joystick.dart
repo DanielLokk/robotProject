@@ -14,18 +14,19 @@ class _JoyStickState extends State<JoyStick> {
     xOffset = 100;
     yOffset = 100;
     return Container(
+      alignment: Alignment.center,
       decoration: BoxDecoration(color: Colors.amberAccent),
       height: 200,
       width: 200,
-      child: Stack(
-        children: [
-          /* Posiciona relatiu al contenidor superior */
-          Positioned(
-            top: yOffset,
-            right: xOffset,
-            child: FloatingActionButton(onPressed: () {}),
-          ),
-        ],
+      child: GestureDetector(
+        child: Stack(
+          children: [
+            /* Posiciona relatiu al contenidor superior */
+            Positioned(
+              child: FloatingActionButton(onPressed: () {}),
+            ),
+          ],
+        ),
       ),
     );
   }
