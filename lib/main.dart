@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'joystick.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +14,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final database = FirebaseDatabase.instance.reference();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Robot Project',
@@ -28,9 +30,9 @@ class MyApp extends StatelessWidget {
             children: [
               /* maybe this needs to be changed later for responsiveness */
               Padding(padding: EdgeInsets.only(left: 160)),
-              JoyStick(),
+              JoyStick(database: database),
               Padding(padding: EdgeInsets.symmetric(horizontal: 100)),
-              JoyStick(),
+              JoyStick(database: database),
             ],
           ),
         ),
