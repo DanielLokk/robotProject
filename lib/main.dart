@@ -50,18 +50,18 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _vlcPlayerController = new VlcPlayerController();
-    _streamURL = 'wbfejnk';
+    _streamURL = 'https://www.twitch.tv/th3antonio';
   }
 
-  void setUrl() {
+  /* void setUrl() {
     setState(() {
       if (_streamURL != null) {
         _streamURL = null;
       } else {
-        _streamURL = '';
+        _streamURL = 'https://www.twitch.tv/th3antonio';
       }
     });
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
