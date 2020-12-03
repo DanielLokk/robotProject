@@ -30,9 +30,15 @@ class MyApp extends StatelessWidget {
             children: [
               /* maybe this needs to be changed later for responsiveness */
               Padding(padding: EdgeInsets.only(left: 160)),
-              JoyStick(database: database),
+              JoyStick(
+                database: database,
+                direction: JoyStick.vertical,
+              ),
               Padding(padding: EdgeInsets.symmetric(horizontal: 100)),
-              JoyStick(database: database),
+              JoyStick(
+                database: database,
+                direction: JoyStick.horizontal,
+              ),
             ],
           ),
         ),
