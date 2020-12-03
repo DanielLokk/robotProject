@@ -23,7 +23,7 @@ class JoyStick extends StatefulWidget {
 class _JoyStickState extends State<JoyStick> {
   /* offset of the X axis. it's used to determine the position 
   of the joystick horizontally */
-  double xOffset = 0;
+  double xOffset = 75;
 
   /* offset of the Y axis. it's used to determine the position 
   of the joystick vertically */
