@@ -111,7 +111,7 @@ class _JoyStickState extends State<JoyStick> {
                 });
               },
               /* when the user drag ends, the position is set to origin */
-              onVerticalDragEnd: (details) {
+              onHorizontalDragEnd: (details) {
                 setState(() {
                   xOffset = 75;
                   updateData('right', 0);
