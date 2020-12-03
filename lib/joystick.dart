@@ -30,8 +30,8 @@ class _JoyStickState extends State<JoyStick> {
   double yOffset = 75;
 
   /* sends motor update */
-  void updateData(value) {
-    widget.database.child('left').update({'move': value});
+  void updateData(motor, value) {
+    widget.database.child(motor).update({'move': value});
     /* widget.database.once().then((DataSnapshot snapshot) {
       print('Data : ${snapshot.value}');
     }); */
@@ -56,11 +56,11 @@ class _JoyStickState extends State<JoyStick> {
 
                     /* updates the data depending on the offset */
                     if (dy > startOffset + 5) {
-                      updateData(-1);
+                      updateData('left', -1);
                     } else if (startOffset - 5 <= dy && dy <= startOffset + 5) {
-                      updateData(0);
+                      updateData('left', 0);
                     } else if (dy < startOffset - 2) {
-                      updateData(1);
+                      updateData('left', 1);
                     }
                   }
                 });
@@ -69,7 +69,7 @@ class _JoyStickState extends State<JoyStick> {
               onVerticalDragEnd: (details) {
                 setState(() {
                   yOffset = 75;
-                  updateData(0);
+                  updateData('left', 0);
                 });
               },
               child: Stack(
@@ -87,6 +87,50 @@ class _JoyStickState extends State<JoyStick> {
               ),
             ),
           )
-        : Container();
+        : Container(
+            decoration: BoxDecoration(color: Colors.lightBlue),
+            height: 200,
+            width: 200,
+            child: GestureDetector(
+              onHorizontalDragUpdate: (details) {
+                setState(() {
+                  double dx = details.localPosition.dx;
+                  /* if it's within the limits of the container, move vertically */
+                  if (dx >= 0 && dx <= 145) {
+                    xOffset = dx;
+
+                    /* updates the data depending on the offset */
+                    if (dx > startOffset + 5) {
+                      updateData('right', -1);
+                    } else if (startOffset - 5 <= dx && dx <= startOffset + 5) {
+                      updateData('right', 0);
+                    } else if (dx < startOffset - 2) {
+                      updateData('right', 1);
+                    }
+                  }
+                });
+              },
+              /* when the user drag ends, the position is set to origin */
+              onVerticalDragEnd: (details) {
+                setState(() {
+                  xOffset = 75;
+                  updateData('right', 0);
+                });
+              },
+              child: Stack(
+                children: [
+                  /* Posiciona relatiu al contenidor superior */
+                  Positioned(
+                    top: 75,
+                    left: xOffset,
+                    child: FloatingActionButton(
+                      onPressed: () {},
+                      elevation: 5,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
   }
 }
