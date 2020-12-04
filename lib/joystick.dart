@@ -32,6 +32,7 @@ class _JoyStickState extends State<JoyStick> {
   /* sends motor update */
   void updateData(motor, value) {
     widget.database.child(motor).update({'move': value});
+    print("Hey I'm sending -> $value EAT SHIT");
     /* widget.database.once().then((DataSnapshot snapshot) {
       print('Data : ${snapshot.value}');
     }); */
@@ -50,9 +51,10 @@ class _JoyStickState extends State<JoyStick> {
               onVerticalDragUpdate: (details) {
                 setState(() {
                   double dy = details.localPosition.dy;
-                  /* if it's within the limits of the container, move vertically */
-                  if (dy >= 0 && dy <= 145) {
-                    yOffset = dy;
+                  /* if it's within the limits of the container, move vertically. 
+                  the +25 is to center the pointer with the circle*/
+                  if (dy >= 0 + 25 && dy <= 145 + 25) {
+                    yOffset = dy - 25;
 
                     /* updates the data depending on the offset */
                     if (dy > startOffset + 5) {
@@ -95,16 +97,17 @@ class _JoyStickState extends State<JoyStick> {
               onHorizontalDragUpdate: (details) {
                 setState(() {
                   double dx = details.localPosition.dx;
-                  /* if it's within the limits of the container, move vertically */
-                  if (dx >= 0 && dx <= 145) {
-                    xOffset = dx;
+                  /* if it's within the limits of the container, move horizontally */
+                  if (dx >= 0 + 25 && dx <= 145 + 25) {
+                    xOffset = dx - 25;
 
                     /* updates the data depending on the offset */
-                    if (dx > startOffset + 5) {
+                    if (dx > startOffset + 5 + 25) {
                       updateData('right', -1);
-                    } else if (startOffset - 5 <= dx && dx <= startOffset + 5) {
+                    } else if (startOffset - 5 + 25 <= dx &&
+                        dx <= startOffset + 5 + 25) {
                       updateData('right', 0);
-                    } else if (dx < startOffset - 2) {
+                    } else if (dx < startOffset - 2 + 25) {
                       updateData('right', 1);
                     }
                   }

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_vlc_player/vlc_player.dart';
 import 'joystick.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter_vlc_player/flutter_vlc_player.dart';
-import 'package:flutter_vlc_player/vlc_player_controller.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,25 +41,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _streamURL;
-  VlcPlayerController _vlcPlayerController;
-
-  @override
-  void initState() {
-    super.initState();
-    _vlcPlayerController = new VlcPlayerController();
-    _streamURL = 'https://www.twitch.tv/th3antonio';
-  }
-
-  /* void setUrl() {
-    setState(() {
-      if (_streamURL != null) {
-        _streamURL = null;
-      } else {
-        _streamURL = 'https://www.twitch.tv/th3antonio';
-      }
-    });
-  } */
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,15 +50,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _streamURL == null
-                ? Container()
-                : VlcPlayer(
-                    defaultHeight: 200,
-                    defaultWidth: 200,
-                    url: _streamURL,
-                    controller: _vlcPlayerController,
-                    placeholder: Container(),
-                  ),
+            _streamURL == null ? Container() : Container(),
             Row(
               children: [
                 /* maybe this needs to be changed later for responsiveness */
