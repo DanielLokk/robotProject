@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'joystick.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_webrtc/flutter_webrtc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,32 +41,54 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String _streamURL;
+  final _localRenderer = new RTCVideoRenderer();
+
+  @override
+  void dispose() {
+    _localRenderer.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    initRenderer();
+    _getUserMedia();
+    super.initState();
+  }
+
+  initRenderer() async {
+    await _localRenderer.initialize();
+  }
+
+  _getUserMedia() async {
+    final Map<String, dynamic> mediaConstraints = {
+      'audio': false,
+      'video': {
+        'facingMode': 'user',
+      },
+    };
+
+    MediaStream stream = await MediaDevices.getUserMedia(mediaConstraints);
+
+    _localRenderer.srcObject = stream;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       /* container to align on the bottom  */
-      body: Container(
-        alignment: Alignment.bottomCenter,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _streamURL == null ? Container() : Container(),
-            Row(
-              children: [
-                /* maybe this needs to be changed later for responsiveness */
-                JoyStick(
-                  database: widget.database,
-                  direction: JoyStick.vertical,
-                ),
-                JoyStick(
-                  database: widget.database,
-                  direction: JoyStick.horizontal,
-                ),
-              ],
+      body: Stack(
+        children: <Widget>[
+          Positioned(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            child: Container(
+              child: RTCVideoView(_localRenderer),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
