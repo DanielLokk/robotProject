@@ -29,13 +29,20 @@ class _JoyStickState extends State<JoyStick> {
   /// of the joystick vertically
   double yOffset = 75;
 
+  bool onMove = false;
+
+  GlobalKey _keyBall = GlobalKey();
+
   /// Sends motor update
-  void updateData(motor, value) {
-    widget.database.child(motor).update({'move': value});
-    print("Hey I'm sending -> $value EAT SHIT");
-    /* widget.database.once().then((DataSnapshot snapshot) {
-      print('Data : ${snapshot.value}');
-    }); */
+  void updateData(motor, value) =>
+      widget.database.child(motor).update({'move': value});
+
+  /// Ball of the joystick
+
+  _getPositions() {
+    final RenderBox renderBoxRed = _keyBall.currentContext.findRenderObject();
+    final positionRed = renderBoxRed.localToGlobal(Offset.zero);
+    print("POSITION of Red: $positionRed ");
   }
 
   @override
@@ -49,16 +56,18 @@ class _JoyStickState extends State<JoyStick> {
             height: 200,
             width: 200,
             child: GestureDetector(
+              /// Takes only vertical updates
               onVerticalDragUpdate: (details) {
                 setState(() {
                   double dy = details.localPosition.dy;
+                  onMove = true;
 
                   /// If it's within the limits of the container, move vertically.
                   /// the +25 is to center the pointer with the circle
                   if (dy >= 0 + 25 && dy <= 145 + 25) {
                     yOffset = dy - 25;
 
-                    /// Updates the data depending on the offset
+                    /// Updates the database depending the offset
                     if (dy > startOffset + 5) {
                       updateData('left', -1);
                     } else if (startOffset - 5 <= dy && dy <= startOffset + 5) {
@@ -79,7 +88,6 @@ class _JoyStickState extends State<JoyStick> {
               },
               child: Stack(
                 children: [
-                  /// Posiciona relatiu al contenidor superior
                   Positioned(
                     top: yOffset,
                     left: 70,
@@ -100,6 +108,8 @@ class _JoyStickState extends State<JoyStick> {
               onHorizontalDragUpdate: (details) {
                 setState(() {
                   double dx = details.localPosition.dx;
+                  onMove = true;
+                  _getPositions();
 
                   /// If it's within the limits of the container, move horizontally
                   if (dx >= 0 + 25 && dx <= 145 + 25) {
@@ -121,21 +131,43 @@ class _JoyStickState extends State<JoyStick> {
               /// When the user drag ends, the position is set to origin */
               onHorizontalDragEnd: (details) {
                 setState(() {
+                  onMove = false;
                   xOffset = 75;
                   updateData('right', 0);
                 });
               },
               child: Stack(
                 children: [
-                  /* Posiciona relatiu al contenidor superior */
-                  Positioned(
-                    top: 75,
-                    left: xOffset,
-                    child: FloatingActionButton(
-                      onPressed: () {},
-                      elevation: 5,
-                    ),
-                  ),
+                  /// If joystick moves, Positioned, if not center it
+                  onMove == true
+                      ? Positioned(
+                          top: 75,
+                          left: xOffset,
+                          child: Container(
+                            key: _keyBall,
+                            width: 75.0,
+                            height: 75.0,
+                            child: new RawMaterialButton(
+                              shape: new CircleBorder(),
+                              elevation: 5.0,
+                              onPressed: () {},
+                              fillColor: Colors.amber,
+                            ),
+                          ),
+                        )
+                      : Center(
+                          child: Container(
+                            key: _keyBall,
+                            width: 75.0,
+                            height: 75.0,
+                            child: new RawMaterialButton(
+                              shape: new CircleBorder(),
+                              elevation: 5.0,
+                              onPressed: () {},
+                              fillColor: Colors.amber,
+                            ),
+                          ),
+                        ),
                 ],
               ),
             ),
