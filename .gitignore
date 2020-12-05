@@ -112,3 +112,5 @@ app.*.symbols
 # extra dani
 # crashing errors files
 **ios/Flutter
+**build/
+.flutter-plugins**

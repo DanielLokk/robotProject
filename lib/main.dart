@@ -51,8 +51,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    initRenderer();
+    try {
+      initRenderer();
+    } catch (error) {
+      print("no hem trobat una camara!");
+    }
+
     _getUserMedia();
+
     super.initState();
   }
 

@@ -8,11 +8,11 @@ class JoyStick extends StatefulWidget {
   static const horizontal = 0;
   static const vertical = 1;
 
-  /* var that determines wether the joystick moves vertically
-  or horizontally */
+  /// var that determines wether the joystick moves vertically
+  /// or horizontally
   final int direction;
 
-  /* reference to motor in the database */
+  /// reference to motor in the database
   final DatabaseReference database;
   JoyStick({
     this.database,
@@ -21,15 +21,15 @@ class JoyStick extends StatefulWidget {
 }
 
 class _JoyStickState extends State<JoyStick> {
-  /* offset of the X axis. it's used to determine the position 
-  of the joystick horizontally */
+  /// Offset of the X axis. it's used to determine the position
+  /// of the joystick horizontally
   double xOffset = 75;
 
-  /* offset of the Y axis. it's used to determine the position 
-  of the joystick vertically */
+  /// Offset of the Y axis. it's used to determine the position
+  /// of the joystick vertically
   double yOffset = 75;
 
-  /* sends motor update */
+  /// Sends motor update
   void updateData(motor, value) {
     widget.database.child(motor).update({'move': value});
     print("Hey I'm sending -> $value EAT SHIT");
@@ -41,7 +41,8 @@ class _JoyStickState extends State<JoyStick> {
   @override
   Widget build(BuildContext context) {
     double startOffset = 75;
-    /* container that sets the limit of the gesture box */
+
+    /// container that sets the limit of the gesture box
     return widget.direction == JoyStick.vertical
         ? Container(
             decoration: BoxDecoration(color: Colors.grey),
@@ -51,12 +52,13 @@ class _JoyStickState extends State<JoyStick> {
               onVerticalDragUpdate: (details) {
                 setState(() {
                   double dy = details.localPosition.dy;
-                  /* if it's within the limits of the container, move vertically. 
-                  the +25 is to center the pointer with the circle*/
+
+                  /// If it's within the limits of the container, move vertically.
+                  /// the +25 is to center the pointer with the circle
                   if (dy >= 0 + 25 && dy <= 145 + 25) {
                     yOffset = dy - 25;
 
-                    /* updates the data depending on the offset */
+                    /// Updates the data depending on the offset
                     if (dy > startOffset + 5) {
                       updateData('left', -1);
                     } else if (startOffset - 5 <= dy && dy <= startOffset + 5) {
@@ -67,7 +69,8 @@ class _JoyStickState extends State<JoyStick> {
                   }
                 });
               },
-              /* when the user drag ends, the position is set to origin */
+
+              /// When the user drag ends, the position is set to origin
               onVerticalDragEnd: (details) {
                 setState(() {
                   yOffset = 75;
@@ -76,7 +79,7 @@ class _JoyStickState extends State<JoyStick> {
               },
               child: Stack(
                 children: [
-                  /* Posiciona relatiu al contenidor superior */
+                  /// Posiciona relatiu al contenidor superior
                   Positioned(
                     top: yOffset,
                     left: 70,
@@ -97,11 +100,12 @@ class _JoyStickState extends State<JoyStick> {
               onHorizontalDragUpdate: (details) {
                 setState(() {
                   double dx = details.localPosition.dx;
-                  /* if it's within the limits of the container, move horizontally */
+
+                  /// If it's within the limits of the container, move horizontally
                   if (dx >= 0 + 25 && dx <= 145 + 25) {
                     xOffset = dx - 25;
 
-                    /* updates the data depending on the offset */
+                    /// Updates the data depending on the offset
                     if (dx > startOffset + 5 + 25) {
                       updateData('right', -1);
                     } else if (startOffset - 5 + 25 <= dx &&
@@ -113,7 +117,8 @@ class _JoyStickState extends State<JoyStick> {
                   }
                 });
               },
-              /* when the user drag ends, the position is set to origin */
+
+              /// When the user drag ends, the position is set to origin */
               onHorizontalDragEnd: (details) {
                 setState(() {
                   xOffset = 75;
