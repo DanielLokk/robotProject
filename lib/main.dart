@@ -88,6 +88,22 @@ class _HomePageState extends State<HomePage> {
               child: RTCVideoView(_localRenderer),
             ),
           ),
+          Positioned(
+            bottom: 5,
+            left: 200,
+            child: JoyStick(
+              database: widget.database,
+              direction: JoyStick.vertical,
+            ),
+          ),
+          Positioned(
+            bottom: 5,
+            right: 200,
+            child: JoyStick(
+              database: widget.database,
+              direction: JoyStick.horizontal,
+            ),
+          )
         ],
       ),
     );
