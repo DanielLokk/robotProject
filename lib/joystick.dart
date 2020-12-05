@@ -35,7 +35,7 @@ class _JoyStickState extends State<JoyStick> {
   GlobalKey _keyBall = GlobalKey();
 
   /// Sends motor update
-  void updateData(motor, value) =>
+  void updateData(motor, value) async =>
       widget.database.child(motor).update({'move': value});
 
   /// Ball of the joystick global position
@@ -45,11 +45,13 @@ class _JoyStickState extends State<JoyStick> {
     print("POSITION of Red: $positionRed ");
   }
 
+  /// Outline decoration box
   var decorationOutline = BoxDecoration(
     boxShadow: [BoxShadow(spreadRadius: 2.75, color: siscinc)],
     color: c4c4c4,
   );
 
+  /// Joystick ball
   var joystickBall = Container(
     height: 75.0,
     width: 75.0,
