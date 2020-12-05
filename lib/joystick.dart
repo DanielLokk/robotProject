@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'assets.dart';
 
 class JoyStick extends StatefulWidget {
   @override
@@ -29,20 +30,23 @@ class _JoyStickState extends State<JoyStick> {
   /// of the joystick vertically
   double yOffset = 62.5;
 
-  bool onMove = false;
-
   GlobalKey _keyBall = GlobalKey();
 
   /// Sends motor update
   void updateData(motor, value) =>
       widget.database.child(motor).update({'move': value});
 
-  /// Ball of the joystick
+  /// Ball of the joystick global position
   void _getPositions(BuildContext context, DragUpdateDetails details) {
     final RenderBox renderBoxRed = _keyBall.currentContext.findRenderObject();
     final positionRed = renderBoxRed.localToGlobal(Offset.zero);
     print("POSITION of Red: $positionRed ");
   }
+
+  var decorationOutline = BoxDecoration(
+    boxShadow: [BoxShadow(spreadRadius: 2.75, color: siscinc)],
+    color: c4c4c4,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -51,19 +55,19 @@ class _JoyStickState extends State<JoyStick> {
     /// container that sets the limit of the gesture box
     return widget.direction == JoyStick.vertical
         ? Container(
-            decoration: BoxDecoration(color: Colors.grey),
+            margin: EdgeInsets.only(bottom: 20),
             height: 200,
-            width: 200,
+            width: 75,
+            decoration: decorationOutline,
             child: GestureDetector(
               /// Takes only vertical updates
               onVerticalDragUpdate: (details) {
                 setState(() {
                   double dy = details.localPosition.dy;
-                  onMove = true;
 
                   /// If it's within the limits of the container, move vertically.
                   /// the +25 is to center the pointer with the circle
-                  if (dy >= 25 && dy <= 150) {
+                  if (dy >= 50 && dy <= 150) {
                     yOffset = dy - 25;
 
                     /// Updates the database depending the offset
@@ -90,7 +94,7 @@ class _JoyStickState extends State<JoyStick> {
                   /// Joystick ball
                   Positioned(
                     top: yOffset,
-                    left: startOffset,
+                    left: 0,
                     child: Container(
                       key: _keyBall,
                       width: 75.0,
@@ -108,8 +112,9 @@ class _JoyStickState extends State<JoyStick> {
             ),
           )
         : Container(
-            decoration: BoxDecoration(color: Colors.lightBlue),
-            height: 200,
+            margin: EdgeInsets.only(bottom: 75),
+            decoration: decorationOutline,
+            height: 75,
             width: 200,
             child: GestureDetector(
               onHorizontalDragUpdate: (details) {
@@ -136,7 +141,6 @@ class _JoyStickState extends State<JoyStick> {
               /// When the user drag ends, the position is set to origin */
               onHorizontalDragEnd: (details) {
                 setState(() {
-                  onMove = false;
                   xOffset = startOffset;
                   updateData('right', 0);
                 });
@@ -145,7 +149,7 @@ class _JoyStickState extends State<JoyStick> {
                 children: [
                   /// Joystick ball
                   Positioned(
-                    top: startOffset,
+                    top: 0,
                     left: xOffset,
                     child: Container(
                       key: _keyBall,
