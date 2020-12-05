@@ -79,6 +79,7 @@ class _HomePageState extends State<HomePage> {
       /* container to align on the bottom  */
       body: Stack(
         children: <Widget>[
+          /// Camera RTC for the moment is not connected to the raspberry
           Positioned(
             top: 5,
             left: 20,
@@ -88,6 +89,8 @@ class _HomePageState extends State<HomePage> {
               child: RTCVideoView(_localRenderer),
             ),
           ),
+
+          /// Joystick left, vertical movement
           Positioned(
             bottom: 5,
             left: 200,
@@ -96,6 +99,8 @@ class _HomePageState extends State<HomePage> {
               direction: JoyStick.vertical,
             ),
           ),
+
+          /// Joystick right, horizontal movement
           Positioned(
             bottom: 5,
             right: 200,
