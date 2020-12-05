@@ -63,7 +63,7 @@ class _JoyStickState extends State<JoyStick> {
 
                   /// If it's within the limits of the container, move vertically.
                   /// the +25 is to center the pointer with the circle
-                  if (dy >= 0 + 25 && dy <= 145 + 25) {
+                  if (dy >= 25 && dy <= 150) {
                     yOffset = dy - 25;
 
                     /// Updates the database depending the offset
@@ -87,12 +87,20 @@ class _JoyStickState extends State<JoyStick> {
               },
               child: Stack(
                 children: [
+                  /// Joystick ball
                   Positioned(
                     top: yOffset,
-                    left: 70,
-                    child: FloatingActionButton(
-                      onPressed: () {},
-                      elevation: 5,
+                    left: startOffset,
+                    child: Container(
+                      key: _keyBall,
+                      width: 75.0,
+                      height: 75.0,
+                      child: new RawMaterialButton(
+                        shape: new CircleBorder(),
+                        elevation: 5.0,
+                        onPressed: () {},
+                        fillColor: Colors.amber,
+                      ),
                     ),
                   ),
                 ],
@@ -135,7 +143,7 @@ class _JoyStickState extends State<JoyStick> {
               },
               child: Stack(
                 children: [
-                  /// If joystick moves, Positioned, if not center it
+                  /// Joystick ball
                   Positioned(
                     top: startOffset,
                     left: xOffset,
