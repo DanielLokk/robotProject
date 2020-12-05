@@ -23,11 +23,11 @@ class JoyStick extends StatefulWidget {
 class _JoyStickState extends State<JoyStick> {
   /// Offset of the X axis. it's used to determine the position
   /// of the joystick horizontally
-  double xOffset = 75;
+  double xOffset = 62.5;
 
   /// Offset of the Y axis. it's used to determine the position
   /// of the joystick vertically
-  double yOffset = 75;
+  double yOffset = 62.5;
 
   bool onMove = false;
 
@@ -38,8 +38,7 @@ class _JoyStickState extends State<JoyStick> {
       widget.database.child(motor).update({'move': value});
 
   /// Ball of the joystick
-
-  _getPositions() {
+  void _getPositions(BuildContext context, DragUpdateDetails details) {
     final RenderBox renderBoxRed = _keyBall.currentContext.findRenderObject();
     final positionRed = renderBoxRed.localToGlobal(Offset.zero);
     print("POSITION of Red: $positionRed ");
@@ -47,7 +46,7 @@ class _JoyStickState extends State<JoyStick> {
 
   @override
   Widget build(BuildContext context) {
-    double startOffset = 75;
+    double startOffset = 62.5;
 
     /// container that sets the limit of the gesture box
     return widget.direction == JoyStick.vertical
@@ -82,7 +81,7 @@ class _JoyStickState extends State<JoyStick> {
               /// When the user drag ends, the position is set to origin
               onVerticalDragEnd: (details) {
                 setState(() {
-                  yOffset = 75;
+                  yOffset = startOffset;
                   updateData('left', 0);
                 });
               },
@@ -108,11 +107,9 @@ class _JoyStickState extends State<JoyStick> {
               onHorizontalDragUpdate: (details) {
                 setState(() {
                   double dx = details.localPosition.dx;
-                  onMove = true;
-                  _getPositions();
 
                   /// If it's within the limits of the container, move horizontally
-                  if (dx >= 0 + 25 && dx <= 145 + 25) {
+                  if (dx >= 25 && dx <= 150) {
                     xOffset = dx - 25;
 
                     /// Updates the data depending on the offset
@@ -132,42 +129,28 @@ class _JoyStickState extends State<JoyStick> {
               onHorizontalDragEnd: (details) {
                 setState(() {
                   onMove = false;
-                  xOffset = 75;
+                  xOffset = startOffset;
                   updateData('right', 0);
                 });
               },
               child: Stack(
                 children: [
                   /// If joystick moves, Positioned, if not center it
-                  onMove == true
-                      ? Positioned(
-                          top: 75,
-                          left: xOffset,
-                          child: Container(
-                            key: _keyBall,
-                            width: 75.0,
-                            height: 75.0,
-                            child: new RawMaterialButton(
-                              shape: new CircleBorder(),
-                              elevation: 5.0,
-                              onPressed: () {},
-                              fillColor: Colors.amber,
-                            ),
-                          ),
-                        )
-                      : Center(
-                          child: Container(
-                            key: _keyBall,
-                            width: 75.0,
-                            height: 75.0,
-                            child: new RawMaterialButton(
-                              shape: new CircleBorder(),
-                              elevation: 5.0,
-                              onPressed: () {},
-                              fillColor: Colors.amber,
-                            ),
-                          ),
-                        ),
+                  Positioned(
+                    top: startOffset,
+                    left: xOffset,
+                    child: Container(
+                      key: _keyBall,
+                      width: 75.0,
+                      height: 75.0,
+                      child: new RawMaterialButton(
+                        shape: new CircleBorder(),
+                        elevation: 5.0,
+                        onPressed: () {},
+                        fillColor: Colors.amber,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
