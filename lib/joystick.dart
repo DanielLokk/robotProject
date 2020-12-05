@@ -24,13 +24,13 @@ class JoyStick extends StatefulWidget {
 class _JoyStickState extends State<JoyStick> {
   /// Offset of the X axis. it's used to determine the position
   /// of the joystick horizontally
-  double xOffset = 62.5;
+  double xOffset = 85;
 
   /// Offset of the Y axis. it's used to determine the position
   /// of the joystick vertically
-  double yOffset = 62.5;
+  double yOffset = 85;
 
-  double startOffset = 62.5;
+  double startOffset = 82.5;
 
   GlobalKey _keyBall = GlobalKey();
 
@@ -64,101 +64,103 @@ class _JoyStickState extends State<JoyStick> {
 
   @override
   Widget build(BuildContext context) {
-    double maxBottomOffset = startOffset + 91;
-    double maxTopOffset = startOffset - 40;
+    double maxBottomOffset = startOffset + 100;
+    double maxTopOffset = startOffset - 50;
 
-    /// container that sets the limit of the gesture box
+    /// depending on the direction its a vertical container or horizontal
     return widget.direction == JoyStick.vertical
-        ? Container(
-            margin: EdgeInsets.only(bottom: 20),
-            height: 200,
-            width: 75,
-            decoration: decorationOutline,
-            child: GestureDetector(
-              /// Takes only vertical updates
-              onVerticalDragUpdate: (details) {
-                setState(() {
-                  double dy = details.localPosition.dy;
+        ? GestureDetector(
+            /// Takes only vertical updates
+            onVerticalDragUpdate: (details) {
+              setState(() {
+                double dy = details.localPosition.dy;
 
-                  /// If it's within the limits of the container, move vertically.
-                  if (dy >= maxTopOffset && dy <= maxBottomOffset) {
-                    yOffset = dy - 25;
+                /// If it's within the limits of the container, move vertically.
+                if (dy > maxTopOffset && dy < maxBottomOffset) {
+                  yOffset = dy - 25;
 
-                    /// Updates the database depending the offset
-                    if (dy > startOffset + 5) {
-                      updateData('left', -1);
-                    } else if (startOffset - 5 <= dy && dy <= startOffset + 5) {
-                      updateData('left', 0);
-                    } else if (dy < startOffset - 2) {
-                      updateData('left', 1);
-                    }
+                  /// Updates the database depending the offset
+                  if (dy > startOffset + 5) {
+                    updateData('left', -1);
+                  } else if (startOffset - 5 <= dy && dy <= startOffset + 5) {
+                    updateData('left', 0);
+                  } else if (dy < startOffset - 2) {
+                    updateData('left', 1);
                   }
-                });
-              },
+                }
+              });
+            },
 
-              /// When the user drag ends, the position is set to origin
-              onVerticalDragEnd: (details) {
-                setState(() {
-                  yOffset = startOffset;
-                  updateData('left', 0);
-                });
-              },
-              child: Stack(
-                children: [
-                  /// Joystick ball
-                  Positioned(
-                    top: yOffset,
-                    left: 0,
-                    child: joystickBall,
-                  ),
-                ],
-              ),
+            /// When the user drag ends, the position is set to origin
+            onVerticalDragEnd: (details) {
+              setState(() {
+                yOffset = startOffset;
+                updateData('left', 0);
+              });
+            },
+            child: Stack(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom: 20, top: 20),
+                  height: 200,
+                  width: 75,
+                  decoration: decorationOutline,
+                ),
+
+                /// Joystick ball
+                Positioned(
+                  top: yOffset,
+                  left: 0,
+                  child: joystickBall,
+                ),
+              ],
             ),
           )
-        : Container(
-            margin: EdgeInsets.only(bottom: 75),
-            decoration: decorationOutline,
-            height: 75,
-            width: 200,
-            child: GestureDetector(
-              onHorizontalDragUpdate: (details) {
-                setState(() {
-                  double dx = details.localPosition.dx;
+        : GestureDetector(
+            onHorizontalDragUpdate: (details) {
+              setState(() {
+                double dx = details.localPosition.dx;
 
-                  /// If it's within the limits of the container, move horizontally
-                  if (dx >= maxTopOffset && dx <= maxBottomOffset) {
-                    xOffset = dx - 25;
+                /// If it's within the limits of the container, move horizontally
+                if (dx >= maxTopOffset && dx <= maxBottomOffset) {
+                  xOffset = dx - 25;
 
-                    /// Updates the data depending on the offset
-                    if (dx > startOffset + 5 + 25) {
-                      updateData('right', -1);
-                    } else if (startOffset - 5 + 25 <= dx &&
-                        dx <= startOffset + 5 + 25) {
-                      updateData('right', 0);
-                    } else if (dx < startOffset - 2 + 25) {
-                      updateData('right', 1);
-                    }
+                  /// Updates the data depending on the offset
+                  if (dx > startOffset + 5 + 25) {
+                    updateData('right', -1);
+                  } else if (startOffset - 5 + 25 <= dx &&
+                      dx <= startOffset + 5 + 25) {
+                    updateData('right', 0);
+                  } else if (dx < startOffset - 2 + 25) {
+                    updateData('right', 1);
                   }
-                });
-              },
+                }
+              });
+            },
 
-              /// When the user drag ends, the position is set to origin */
-              onHorizontalDragEnd: (details) {
-                setState(() {
-                  xOffset = startOffset;
-                  updateData('right', 0);
-                });
-              },
-              child: Stack(
-                children: [
-                  /// Joystick ball
-                  Positioned(
-                    top: 0,
-                    left: xOffset,
-                    child: joystickBall,
-                  ),
-                ],
-              ),
+            /// When the user drag ends, the position is set to origin */
+            onHorizontalDragEnd: (details) {
+              setState(() {
+                xOffset = startOffset;
+                updateData('right', 0);
+              });
+            },
+            child: Stack(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom: 75, left: 25, right: 25),
+                  decoration: decorationOutline,
+                  height: 75,
+                  width: 200,
+                ),
+
+                /// Joystick ball
+                Positioned(
+                  top: 0,
+                  left: xOffset,
+                  child: joystickBall,
+                ),
+              ],
             ),
           );
   }
