@@ -30,6 +30,8 @@ class _JoyStickState extends State<JoyStick> {
   /// of the joystick vertically
   double yOffset = 62.5;
 
+  double startOffset = 62.5;
+
   GlobalKey _keyBall = GlobalKey();
 
   /// Sends motor update
@@ -48,9 +50,22 @@ class _JoyStickState extends State<JoyStick> {
     color: c4c4c4,
   );
 
+  var joystickBall = Container(
+    height: 75.0,
+    width: 75.0,
+    child: RawMaterialButton(
+      shape: new CircleBorder(),
+      elevation: 15.0,
+      highlightColor: Colors.transparent,
+      onPressed: () {},
+      fillColor: rebeliousRed,
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
-    double startOffset = 62.5;
+    double maxBottomOffset = startOffset + 91;
+    double maxTopOffset = startOffset - 40;
 
     /// container that sets the limit of the gesture box
     return widget.direction == JoyStick.vertical
@@ -66,8 +81,7 @@ class _JoyStickState extends State<JoyStick> {
                   double dy = details.localPosition.dy;
 
                   /// If it's within the limits of the container, move vertically.
-                  /// the +25 is to center the pointer with the circle
-                  if (dy >= 50 && dy <= 150) {
+                  if (dy >= maxTopOffset && dy <= maxBottomOffset) {
                     yOffset = dy - 25;
 
                     /// Updates the database depending the offset
@@ -95,17 +109,7 @@ class _JoyStickState extends State<JoyStick> {
                   Positioned(
                     top: yOffset,
                     left: 0,
-                    child: Container(
-                      key: _keyBall,
-                      width: 75.0,
-                      height: 75.0,
-                      child: new RawMaterialButton(
-                        shape: new CircleBorder(),
-                        elevation: 5.0,
-                        onPressed: () {},
-                        fillColor: Colors.amber,
-                      ),
-                    ),
+                    child: joystickBall,
                   ),
                 ],
               ),
@@ -122,7 +126,7 @@ class _JoyStickState extends State<JoyStick> {
                   double dx = details.localPosition.dx;
 
                   /// If it's within the limits of the container, move horizontally
-                  if (dx >= 25 && dx <= 150) {
+                  if (dx >= maxTopOffset && dx <= maxBottomOffset) {
                     xOffset = dx - 25;
 
                     /// Updates the data depending on the offset
@@ -151,17 +155,7 @@ class _JoyStickState extends State<JoyStick> {
                   Positioned(
                     top: 0,
                     left: xOffset,
-                    child: Container(
-                      key: _keyBall,
-                      width: 75.0,
-                      height: 75.0,
-                      child: new RawMaterialButton(
-                        shape: new CircleBorder(),
-                        elevation: 5.0,
-                        onPressed: () {},
-                        fillColor: Colors.amber,
-                      ),
-                    ),
+                    child: joystickBall,
                   ),
                 ],
               ),

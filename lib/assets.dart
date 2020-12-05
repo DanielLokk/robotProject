@@ -19,3 +19,5 @@ extension HexColor on Color {
 
 final Color c4c4c4 = HexColor.fromHex("#c4c4c4");
 final Color siscinc = HexColor.fromHex("#656565");
+final Color rebeliousRed = HexColor.fromHex("#FF3636");
+final Color rebeliousRedLight = HexColor.fromHex("#FFAAAA");
