@@ -80,10 +80,10 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: <Widget>[
           Positioned(
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
+            top: 5,
+            left: 20,
+            right: 20,
+            bottom: 400,
             child: Container(
               child: RTCVideoView(_localRenderer),
             ),
