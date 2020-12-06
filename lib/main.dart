@@ -87,10 +87,10 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           /// Camera RTC for the moment is not connected to the raspberry
           Positioned(
-            top: 5,
-            left: 20,
-            right: 20,
-            bottom: 400,
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
             child: Container(
               child: RTCVideoView(_localRenderer),
             ),
