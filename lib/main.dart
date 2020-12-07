@@ -64,9 +64,7 @@ class _HomePageState extends State<HomePage> {
   _getUserMedia() async {
     final Map<String, dynamic> mediaConstraints = {
       'audio': false,
-      'video': {
-        'facingMode': 'user',
-      },
+      'video': {},
     };
 
     MediaStream stream = await MediaDevices.getUserMedia(mediaConstraints);
