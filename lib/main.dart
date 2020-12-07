@@ -6,7 +6,7 @@ import 'package:flutter_webrtc/flutter_webrtc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight])
+  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
       .then((_) {
     runApp(MyApp());
   });
@@ -51,12 +51,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    try {
-      initRenderer();
-    } catch (error) {
-      print("no hem trobat una camara!");
-    }
-
+    initRenderer();
     _getUserMedia();
 
     super.initState();
