@@ -64,7 +64,9 @@ class _HomePageState extends State<HomePage> {
   _getUserMedia() async {
     final Map<String, dynamic> mediaConstraints = {
       'audio': false,
-      'video': {},
+      'video': {
+        'facingMode': 'user',
+      },
     };
 
     MediaStream stream = await MediaDevices.getUserMedia(mediaConstraints);
@@ -80,11 +82,13 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           /// Camera RTC for the moment is not connected to the raspberry
           Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
+            top: 20,
+            left: 186.5,
+            right: 186.5,
+            bottom: 100,
             child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 5.0)),
               child: RTCVideoView(_localRenderer),
             ),
           ),
@@ -92,7 +96,7 @@ class _HomePageState extends State<HomePage> {
           /// Joystick left, vertical movement
           Positioned(
             bottom: 5,
-            left: 200,
+            left: 150,
             child: JoyStick(
               database: widget.database,
               direction: JoyStick.vertical,
@@ -102,7 +106,7 @@ class _HomePageState extends State<HomePage> {
           /// Joystick right, horizontal movement
           Positioned(
             bottom: 5,
-            right: 200,
+            right: 100,
             child: JoyStick(
               database: widget.database,
               direction: JoyStick.horizontal,
