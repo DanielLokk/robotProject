@@ -36,13 +36,13 @@ class MyRiveAnimation extends StatefulWidget {
 }
 
 class _MyRiveAnimationState extends State<MyRiveAnimation> {
-  final riveFileName = 'assets/cybermagnet.riv';
-  Artboard _artboard;
-  RiveAnimationController _controller;
-
   void _togglePlay() {
     setState(() => _controller.isActive = !_controller.isActive);
   }
+
+  final riveFileName = 'assets/cybermagnet.riv';
+  Artboard _artboard;
+  RiveAnimationController _controller;
 
   bool get isPlaying => _controller?.isActive ?? false;
 
@@ -63,7 +63,7 @@ class _MyRiveAnimationState extends State<MyRiveAnimation> {
           final artboard = file.mainArtboard;
           // Add a controller to play back a known animation on the main/default
           // artboard.We store a reference to it so we can toggle playback.
-          artboard.addController(_controller = SimpleAnimation('idle'));
+          artboard.addController(_controller = SimpleAnimation('circle'));
           setState(() => _artboard = artboard);
         }
       },
