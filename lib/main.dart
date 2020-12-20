@@ -5,7 +5,11 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
+      .then((_) {
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -17,6 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Robot Project',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomePage(database: database),
     );
@@ -73,46 +78,42 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       /* container to align on the bottom  */
-      body: OrientationBuilder(builder: (context, orientation) {
-        return orientation == Orientation.landscape
-            ? Stack(
-                children: <Widget>[
-                  /// Camera RTC for the moment is not connected to the raspberry
-                  Positioned(
-                    top: 20,
-                    left: 186.5,
-                    right: 186.5,
-                    bottom: 100,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black, width: 5.0)),
-                      child: RTCVideoView(_localRenderer),
-                    ),
-                  ),
+      body: Stack(
+        children: <Widget>[
+          /// Camera RTC for the moment is not connected to the raspberry
+          Positioned(
+            top: 20,
+            left: 186.5,
+            right: 186.5,
+            bottom: 100,
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 5.0)),
+              child: RTCVideoView(_localRenderer),
+            ),
+          ),
 
-                  /// Joystick left, vertical movement
-                  Positioned(
-                    bottom: 5,
-                    left: 150,
-                    child: JoyStick(
-                      database: widget.database,
-                      direction: JoyStick.vertical,
-                    ),
-                  ),
+          /// Joystick left, vertical movement
+          Positioned(
+            bottom: 5,
+            left: 150,
+            child: JoyStick(
+              database: widget.database,
+              direction: JoyStick.vertical,
+            ),
+          ),
 
-                  /// Joystick right, horizontal movement
-                  Positioned(
-                    bottom: 5,
-                    right: 100,
-                    child: JoyStick(
-                      database: widget.database,
-                      direction: JoyStick.horizontal,
-                    ),
-                  )
-                ],
-              )
-            : JoyStick();
-      }),
+          /// Joystick right, horizontal movement
+          Positioned(
+            bottom: 5,
+            right: 100,
+            child: JoyStick(
+              database: widget.database,
+              direction: JoyStick.horizontal,
+            ),
+          )
+        ],
+      ),
     );
   }
 }
