@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'joystick.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'package:rive/rive.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +24,65 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomePage(database: database),
+      /* home: HomePage(database: database), */
+      home: MyRiveAnimation(),
+    );
+  }
+}
+
+class MyRiveAnimation extends StatefulWidget {
+  @override
+  _MyRiveAnimationState createState() => _MyRiveAnimationState();
+}
+
+class _MyRiveAnimationState extends State<MyRiveAnimation> {
+  final riveFileName = 'assets/cybermagnet.riv';
+  Artboard _artboard;
+  RiveAnimationController _controller;
+
+  void _togglePlay() {
+    setState(() => _controller.isActive = !_controller.isActive);
+  }
+
+  bool get isPlaying => _controller?.isActive ?? false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Load the animation file from the bundle, note that you could also
+    // download this. The RiveFile just expects a list of bytes.
+    rootBundle.load('assets/cybermagnet.riv').then(
+      (data) async {
+        final file = RiveFile();
+
+        // Load the RiveFile from the binary data.
+        if (file.import(data)) {
+          // The artboard is the root of the animation and gets drawn in the
+          // Rive widget.
+          final artboard = file.mainArtboard;
+          // Add a controller to play back a known animation on the main/default
+          // artboard.We store a reference to it so we can toggle playback.
+          artboard.addController(_controller = SimpleAnimation('idle'));
+          setState(() => _artboard = artboard);
+        }
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: _artboard == null ? const SizedBox() : Rive(artboard: _artboard),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _togglePlay,
+        tooltip: isPlaying ? 'Pause' : 'Play',
+        child: Icon(
+          isPlaying ? Icons.pause : Icons.play_arrow,
+        ),
+      ),
     );
   }
 }
