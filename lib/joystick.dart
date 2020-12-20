@@ -6,8 +6,8 @@ class JoyStick extends StatefulWidget {
   @override
   _JoyStickState createState() => _JoyStickState();
 
-  static const horizontal = 0;
-  static const vertical = 1;
+  static const int horizontal = 0;
+  static const int vertical = 1;
 
   /// var that determines wether the joystick moves vertically
   /// or horizontally
@@ -30,35 +30,28 @@ class _JoyStickState extends State<JoyStick> {
   /// of the joystick vertically
   double yOffset = 85;
 
-  double startOffset = 82.5;
-
-  GlobalKey _keyBall = GlobalKey();
+  double startOffset = 85;
 
   /// Sends motor update
-  void updateData(motor, value) =>
+  void updateData(motor, value) async =>
       widget.database.child(motor).update({'move': value});
 
-  /// Ball of the joystick global position
-  void _getPositions(BuildContext context, DragUpdateDetails details) {
-    final RenderBox renderBoxRed = _keyBall.currentContext.findRenderObject();
-    final positionRed = renderBoxRed.localToGlobal(Offset.zero);
-    print("POSITION of Red: $positionRed ");
-  }
-
+  /// Outline decoration box
   var decorationOutline = BoxDecoration(
     boxShadow: [BoxShadow(spreadRadius: 2.75, color: siscinc)],
     color: c4c4c4,
   );
 
+  /// Joystick ball
   var joystickBall = Container(
     height: 75.0,
     width: 75.0,
     child: RawMaterialButton(
-      shape: new CircleBorder(),
+      shape: CircleBorder(),
       elevation: 15.0,
       highlightColor: Colors.transparent,
-      onPressed: () {},
       fillColor: rebeliousRed,
+      onPressed: () {},
     ),
   );
 
@@ -98,6 +91,8 @@ class _JoyStickState extends State<JoyStick> {
                 updateData('left', 0);
               });
             },
+
+            /// Joystic and Outline
             child: Stack(
               children: [
                 Container(
@@ -145,6 +140,8 @@ class _JoyStickState extends State<JoyStick> {
                 updateData('right', 0);
               });
             },
+
+            // Joystick and Outline
             child: Stack(
               children: [
                 Container(
