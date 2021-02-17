@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'joystick.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'modo.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -116,11 +117,7 @@ class _HomePageState extends State<HomePage> {
           Positioned(
             top: 20,
             left: 20,
-            child: Container(
-              height: 50,
-              width: 125,
-              decoration: BoxDecoration(color: Colors.amber),
-            ),
+            child: Modo(),
           ),
         ],
       ),
