@@ -6,7 +6,7 @@ import 'package:flutter_webrtc/flutter_webrtc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
+  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight])
       .then((_) {
     runApp(MyApp());
   });
@@ -65,7 +65,8 @@ class _HomePageState extends State<HomePage> {
     final Map<String, dynamic> mediaConstraints = {
       'audio': false,
       'video': {
-        'facingMode': 'user',
+        // Uncoment to have frontal facecam
+        //'facingMode': 'user',
       },
     };
 
@@ -82,10 +83,10 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           /// Camera RTC for the moment is not connected to the raspberry
           Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
+            top: 20,
+            left: 20,
+            right: 20,
+            bottom: 20,
             child: Container(
               child: RTCVideoView(_localRenderer),
             ),
@@ -94,7 +95,7 @@ class _HomePageState extends State<HomePage> {
           /// Joystick left, vertical movement
           Positioned(
             bottom: 5,
-            left: 200,
+            left: 125,
             child: JoyStick(
               database: widget.database,
               direction: JoyStick.vertical,
@@ -104,12 +105,23 @@ class _HomePageState extends State<HomePage> {
           /// Joystick right, horizontal movement
           Positioned(
             bottom: 5,
-            right: 200,
+            right: 100,
             child: JoyStick(
               database: widget.database,
               direction: JoyStick.horizontal,
             ),
-          )
+          ),
+
+          /// Attack / Defense modo
+          Positioned(
+            top: 20,
+            left: 20,
+            child: Container(
+              height: 50,
+              width: 125,
+              decoration: BoxDecoration(color: Colors.amber),
+            ),
+          ),
         ],
       ),
     );
