@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
           Positioned(
             top: 20,
             left: 20,
-            child: Modo(),
+            child: Modo(database: widget.database),
           ),
         ],
       ),
