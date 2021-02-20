@@ -42,6 +42,11 @@ class _JoyStickState extends State<JoyStick> {
     color: c4c4c4,
   );
 
+  // Normalizes output between [-1, 1]
+  double normalize(val, min, max) {
+    return 2 * ((val - min) / (max - min)) - 1;
+  }
+
   /// Joystick ball
   var joystickBall = Container(
     height: 75.0,
@@ -73,13 +78,10 @@ class _JoyStickState extends State<JoyStick> {
                   yOffset = dy - 25;
 
                   /// Updates the database depending the offset
-                  if (dy > startOffset + 5) {
-                    updateData('left', -1);
-                  } else if (startOffset - 5 <= dy && dy <= startOffset + 5) {
-                    updateData('left', 0);
-                  } else if (dy < startOffset - 2) {
-                    updateData('left', 1);
-                  }
+                  updateData(
+                    "left",
+                    normalize(dy, maxBottomOffset, maxTopOffset),
+                  );
                 }
               });
             },
@@ -121,14 +123,10 @@ class _JoyStickState extends State<JoyStick> {
                   xOffset = dx - 25;
 
                   /// Updates the data depending on the offset
-                  if (dx > startOffset + 5 + 25) {
-                    updateData('right', -1);
-                  } else if (startOffset - 5 + 25 <= dx &&
-                      dx <= startOffset + 5 + 25) {
-                    updateData('right', 0);
-                  } else if (dx < startOffset - 2 + 25) {
-                    updateData('right', 1);
-                  }
+                  updateData(
+                    "right",
+                    normalize(dx, maxBottomOffset, maxTopOffset) * (-1),
+                  );
                 }
               });
             },
