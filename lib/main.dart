@@ -3,11 +3,15 @@ import 'package:flutter/services.dart';
 import 'joystick.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
+<<<<<<< HEAD
 import 'package:rive/rive.dart';
+=======
+import 'modo.dart';
+>>>>>>> master
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
+  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight])
       .then((_) {
     runApp(MyApp());
   });
@@ -124,7 +128,8 @@ class _HomePageState extends State<HomePage> {
     final Map<String, dynamic> mediaConstraints = {
       'audio': false,
       'video': {
-        'facingMode': 'user',
+        // Uncoment to have frontal facecam
+        //'facingMode': 'user',
       },
     };
 
@@ -142,9 +147,15 @@ class _HomePageState extends State<HomePage> {
           /// Camera RTC for the moment is not connected to the raspberry
           Positioned(
             top: 20,
+<<<<<<< HEAD
             left: 186.5,
             right: 186.5,
             bottom: 100,
+=======
+            left: 20,
+            right: 20,
+            bottom: 20,
+>>>>>>> master
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black, width: 5.0)),
@@ -155,7 +166,11 @@ class _HomePageState extends State<HomePage> {
           /// Joystick left, vertical movement
           Positioned(
             bottom: 5,
+<<<<<<< HEAD
             left: 150,
+=======
+            left: 125,
+>>>>>>> master
             child: JoyStick(
               database: widget.database,
               direction: JoyStick.vertical,
@@ -170,7 +185,14 @@ class _HomePageState extends State<HomePage> {
               database: widget.database,
               direction: JoyStick.horizontal,
             ),
-          )
+          ),
+
+          /// Attack / Defense modo
+          Positioned(
+            top: 20,
+            left: 20,
+            child: Modo(),
+          ),
         ],
       ),
     );
