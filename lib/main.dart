@@ -100,6 +100,7 @@ class _HomePageState extends State<HomePage> {
             child: JoyStick(
               database: widget.database,
               direction: JoyStick.vertical,
+              motor: "left",
             ),
           ),
 
@@ -109,7 +110,8 @@ class _HomePageState extends State<HomePage> {
             right: 100,
             child: JoyStick(
               database: widget.database,
-              direction: JoyStick.horizontal,
+              direction: JoyStick.vertical,
+              motor: "right",
             ),
           ),
 

@@ -13,11 +13,14 @@ class JoyStick extends StatefulWidget {
   /// or horizontally
   final int direction;
 
+  final String motor;
+
   /// reference to motor in the database
   final DatabaseReference database;
   JoyStick({
     this.database,
     this.direction = vertical,
+    this.motor,
   });
 }
 
@@ -79,7 +82,7 @@ class _JoyStickState extends State<JoyStick> {
 
                   /// Updates the database depending the offset
                   updateData(
-                    "left",
+                    widget.motor,
                     normalize(dy, maxBottomOffset, maxTopOffset),
                   );
                 }
@@ -90,7 +93,7 @@ class _JoyStickState extends State<JoyStick> {
             onVerticalDragEnd: (details) {
               setState(() {
                 yOffset = startOffset;
-                updateData('left', 0);
+                updateData(widget.motor, 0);
               });
             },
 
