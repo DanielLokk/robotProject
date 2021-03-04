@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:robotApplication/feed.dart';
 import 'joystick.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
@@ -89,14 +90,14 @@ class _HomePageState extends State<HomePage> {
             right: 20,
             bottom: 20,
             child: Container(
-              child: RTCVideoView(_localRenderer),
+              child: Feed(),
             ),
           ),
 
           /// Joystick left, vertical movement
           Positioned(
             bottom: 5,
-            left: 125,
+            left: 100,
             child: JoyStick(
               database: widget.database,
               direction: JoyStick.vertical,
