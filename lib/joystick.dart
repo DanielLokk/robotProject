@@ -41,7 +41,7 @@ class _JoyStickState extends State<JoyStick> {
 
   /// Outline decoration box
   var decorationOutline = BoxDecoration(
-    boxShadow: [BoxShadow(spreadRadius: 2.75, color: siscinc)],
+    boxShadow: [BoxShadow(spreadRadius: 3.5, color: siscinc)],
     color: c4c4c4,
   );
 

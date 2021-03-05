@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:robotApplication/feed.dart';
+import 'assets.dart';
 import 'joystick.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
@@ -97,8 +98,9 @@ class _HomePageState extends State<HomePage> {
               right: 125,
               bottom: 25,
               child: Container(
-                decoration:
-                    BoxDecoration(border: Border.all(color: Colors.black)),
+                decoration: BoxDecoration(
+                  boxShadow: [BoxShadow(spreadRadius: 3.5, color: siscinc)],
+                ),
                 child: Feed(),
               ),
             ),
