@@ -107,6 +107,20 @@ class _JoyStickState extends State<JoyStick> {
                   decoration: decorationOutline,
                 ),
 
+                /// Arrow up image
+                Positioned(
+                  top: 35,
+                  left: 14,
+                  child: Image(image: AssetImage("assets/Arrow up.png")),
+                ),
+
+                /// Arrow down image
+                Positioned(
+                  bottom: 25,
+                  left: 14,
+                  child: Image(image: AssetImage("assets/Arrow down.png")),
+                ),
+
                 /// Joystick ball
                 Positioned(
                   top: yOffset,

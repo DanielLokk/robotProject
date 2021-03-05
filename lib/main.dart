@@ -83,11 +83,11 @@ class _HomePageState extends State<HomePage> {
       /* container to align on the bottom  */
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
+            /* image: DecorationImage(
             image: AssetImage("assets/image.png"),
             fit: BoxFit.cover,
-          ),
-        ),
+          ), */
+            ),
         child: Stack(
           children: <Widget>[
             /// Camera RTC for the moment is not connected to the raspberry
