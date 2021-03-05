@@ -1,3 +1,4 @@
+import 'package:custom_switch/custom_switch.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
@@ -11,34 +12,44 @@ class Modo extends StatefulWidget {
 }
 
 class _ModoState extends State<Modo> {
-  // Defines with text the current state of the button
-  String modo = "Attack";
+  bool status = false;
 
   /// Sends motor update
   void updateData(value) async =>
       widget.database.child("modo").update({'move': value});
 
+  void initState() {
+    super.initState();
+    updateData(false);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      // When tapped, mode changes
-      onTap: () {
-        setState(() {
-          modo = modo == "Attack" ? "Defense" : "Attack";
-          updateData(modo);
-        });
-      },
-      child: Container(
-        height: 50,
-        width: 125,
-        decoration: BoxDecoration(
-          color: Colors.amber,
-          borderRadius: BorderRadius.circular(25),
+    return Column(
+      children: [
+        CustomSwitch(
+          value: status,
+          onChanged: (value) {
+            setState(() {
+              status = status == true ? false : true;
+            });
+            updateData(status);
+          },
+          activeColor: Colors.pinkAccent,
         ),
-        child: Center(
-          child: Text(modo),
+
+        // Separation
+        SizedBox(
+          height: 12.0,
         ),
-      ),
+
+        // Attack mode text
+        Text(
+          'Attack Mode',
+          style:
+              TextStyle(color: Colors.black, fontSize: 15.0, letterSpacing: .5),
+        ),
+      ],
     );
   }
 }

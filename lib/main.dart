@@ -7,7 +7,7 @@ import 'package:robotApplication/feed.dart';
 import 'assets.dart';
 import 'joystick.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter_webrtc/flutter_webrtc.dart';
+
 import 'modo.dart';
 
 void main() {
@@ -47,44 +47,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _localRenderer = new RTCVideoRenderer();
-
-  @override
-  void dispose() {
-    _localRenderer.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    initRenderer();
-    _getUserMedia();
-
-    super.initState();
-  }
-
-  initRenderer() async {
-    await _localRenderer.initialize();
-  }
-
-  _getUserMedia() async {
-    final Map<String, dynamic> mediaConstraints = {
-      'audio': false,
-      'video': {
-        // Uncoment to have frontal facecam
-        //'facingMode': 'user',
-      },
-    };
-
-    MediaStream stream = await MediaDevices.getUserMedia(mediaConstraints);
-
-    _localRenderer.srcObject = stream;
-  }
-
   @override
   Widget build(BuildContext context) {
-    bool status = false;
-
     return Scaffold(
       /* container to align on the bottom  */
       body: Container(
@@ -136,32 +100,7 @@ class _HomePageState extends State<HomePage> {
             Positioned(
               top: 25,
               left: 15,
-              child: Column(
-                children: [
-                  // ON/OFF
-                  CustomSwitch(
-                    value: status,
-                    onChanged: (value) {
-                      setState(() {
-                        status = value;
-                      });
-                    },
-                    activeColor: Colors.pinkAccent,
-                  ),
-
-                  // Separation
-                  SizedBox(
-                    height: 12.0,
-                  ),
-
-                  // Attack mode text
-                  Text(
-                    'Attack Mode',
-                    style: TextStyle(
-                        color: Colors.black, fontSize: 15.0, letterSpacing: .5),
-                  ),
-                ],
-              ),
+              child: Modo(database: widget.database),
             )
           ],
         ),
