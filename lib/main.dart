@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:custom_switch/custom_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:robotApplication/feed.dart';
@@ -80,6 +83,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool status = false;
+
     return Scaffold(
       /* container to align on the bottom  */
       body: Container(
@@ -129,10 +134,35 @@ class _HomePageState extends State<HomePage> {
 
             /// Attack / Defense modo
             Positioned(
-              top: 20,
-              left: 20,
-              child: Modo(database: widget.database),
-            ),
+              top: 25,
+              left: 15,
+              child: Column(
+                children: [
+                  // ON/OFF
+                  CustomSwitch(
+                    value: status,
+                    onChanged: (value) {
+                      setState(() {
+                        status = value;
+                      });
+                    },
+                    activeColor: Colors.pinkAccent,
+                  ),
+
+                  // Separation
+                  SizedBox(
+                    height: 12.0,
+                  ),
+
+                  // Attack mode text
+                  Text(
+                    'Attack Mode',
+                    style: TextStyle(
+                        color: Colors.black, fontSize: 15.0, letterSpacing: .5),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
