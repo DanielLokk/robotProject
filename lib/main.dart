@@ -81,48 +81,58 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       /* container to align on the bottom  */
-      body: Stack(
-        children: <Widget>[
-          /// Camera RTC for the moment is not connected to the raspberry
-          Positioned(
-            top: 20,
-            left: 20,
-            right: 20,
-            bottom: 20,
-            child: Container(
-              child: Feed(),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/image.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Stack(
+          children: <Widget>[
+            /// Camera RTC for the moment is not connected to the raspberry
+            Positioned(
+              top: 25,
+              left: 125,
+              right: 125,
+              bottom: 25,
+              child: Container(
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.black)),
+                child: Feed(),
+              ),
             ),
-          ),
 
-          /// Joystick left, vertical movement
-          Positioned(
-            bottom: 5,
-            left: 100,
-            child: JoyStick(
-              database: widget.database,
-              direction: JoyStick.vertical,
-              motor: "left",
+            /// Joystick left, vertical movement
+            Positioned(
+              bottom: 5,
+              left: 100,
+              child: JoyStick(
+                database: widget.database,
+                direction: JoyStick.vertical,
+                motor: "left",
+              ),
             ),
-          ),
 
-          /// Joystick right, horizontal movement
-          Positioned(
-            bottom: 5,
-            right: 100,
-            child: JoyStick(
-              database: widget.database,
-              direction: JoyStick.vertical,
-              motor: "right",
+            /// Joystick right, horizontal movement
+            Positioned(
+              bottom: 5,
+              right: 100,
+              child: JoyStick(
+                database: widget.database,
+                direction: JoyStick.vertical,
+                motor: "right",
+              ),
             ),
-          ),
 
-          /// Attack / Defense modo
-          Positioned(
-            top: 20,
-            left: 20,
-            child: Modo(database: widget.database),
-          ),
-        ],
+            /// Attack / Defense modo
+            Positioned(
+              top: 20,
+              left: 20,
+              child: Modo(database: widget.database),
+            ),
+          ],
+        ),
       ),
     );
   }
