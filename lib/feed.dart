@@ -8,8 +8,8 @@ class Feed extends HookWidget {
     final isRunning = useState(true);
     return Mjpeg(
       isLive: isRunning.value,
-      //stream: 'http://83.46.131.246:1024/html/cam_pic_new.php',
-      stream: 'http://91.133.85.170:8090/cgi-bin/faststream.jpg',
+      stream: 'http://83.46.131.246:1024/html/cam_pic_new.php',
+      //stream: 'http://91.133.85.170:8090/cgi-bin/faststream.jpg',
     );
   }
 }
