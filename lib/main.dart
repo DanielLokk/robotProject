@@ -4,6 +4,7 @@ import 'package:custom_switch/custom_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:robotApplication/feed.dart';
+import 'package:robotApplication/mrive.dart';
 import 'assets.dart';
 import 'joystick.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -100,7 +101,7 @@ class _HomePageState extends State<HomePage> {
             Positioned(
               top: 25,
               left: 15,
-              child: Modo(database: widget.database),
+              child: MRive(),
             )
           ],
         ),
