@@ -98,10 +98,13 @@ class _HomePageState extends State<HomePage> {
             ),
 
             /// Attack / Defense modo
-            Positioned(
-              top: 25,
-              left: 15,
-              child: MRive(),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: SizedBox(
+                height: 200,
+                width: 200,
+                child: MRive(),
+              ),
             )
           ],
         ),

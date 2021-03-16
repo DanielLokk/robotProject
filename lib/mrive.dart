@@ -35,7 +35,7 @@ class _MRiveState extends State<MRive> {
           final artboard = file.mainArtboard;
           // Add a controller to play back a known animation on the main/default
           // artboard.We store a reference to it so we can toggle playback.
-          artboard.addController(_controller = SimpleAnimation('A <-> D'));
+          artboard.addController(_controller = SimpleAnimation('d to a'));
           setState(() => _riveArtboard = artboard);
         }
       },
@@ -44,18 +44,11 @@ class _MRiveState extends State<MRive> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    return Container(
+      child: Center(
         child: _riveArtboard == null
             ? const SizedBox()
-            : Rive(artboard: _riveArtboard),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _togglePlay,
-        tooltip: isPlaying ? 'Pause' : 'Play',
-        child: Icon(
-          isPlaying ? Icons.pause : Icons.play_arrow,
-        ),
+            : Rive(artboard: _riveArtboard, fit: BoxFit.contain),
       ),
     );
   }
