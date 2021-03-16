@@ -98,12 +98,13 @@ class _HomePageState extends State<HomePage> {
             ),
 
             /// Attack / Defense modo
-            Align(
-              alignment: Alignment.bottomCenter,
+            Positioned(
+              right: 30,
+              top: 35,
               child: SizedBox(
-                height: 100,
-                width: 150,
-                child: MRive(),
+                height: 125,
+                width: 65,
+                child: MRive(database: widget.database),
               ),
             )
           ],

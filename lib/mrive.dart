@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/services.dart';
 import 'package:rive/rive.dart';
 import 'package:flutter/material.dart';
@@ -5,11 +6,33 @@ import 'package:flutter/material.dart';
 class MRive extends StatefulWidget {
   @override
   _MRiveState createState() => _MRiveState();
+
+  final DatabaseReference database;
+
+  MRive({this.database});
 }
 
 class _MRiveState extends State<MRive> {
+  bool status = false;
+
   void _togglePlay() {
     setState(() => _controller.isActive = !_controller.isActive);
+  }
+
+  /// Sends motor update
+  void updateData(value) async =>
+      widget.database.child("modo").update({'attack': value});
+
+  void _activateArt() {
+    setState(() {
+      status = status == true ? false : true;
+      updateData(status);
+      if (status) {
+        _riveArtboard.addController(_controller = SimpleAnimation('d to a'));
+      } else {
+        _riveArtboard.addController(_controller = SimpleAnimation('a to d'));
+      }
+    });
   }
 
   /// Tracks if the animation is playing by whether controller is running.
@@ -35,7 +58,7 @@ class _MRiveState extends State<MRive> {
           final artboard = file.mainArtboard;
           // Add a controller to play back a known animation on the main/default
           // artboard.We store a reference to it so we can toggle playback.
-          artboard.addController(_controller = SimpleAnimation('a to d'));
+          //artboard.addController(_controller = SimpleAnimation('a to d'));
           setState(() => _riveArtboard = artboard);
         }
       },
@@ -46,7 +69,7 @@ class _MRiveState extends State<MRive> {
   Widget build(BuildContext context) {
     return Container(
       child: InkWell(
-        onTap: _togglePlay,
+        onTap: _activateArt,
         child: _riveArtboard == null
             ? const SizedBox()
             : Rive(artboard: _riveArtboard, fit: BoxFit.contain),
