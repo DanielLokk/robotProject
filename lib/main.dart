@@ -101,8 +101,8 @@ class _HomePageState extends State<HomePage> {
             Align(
               alignment: Alignment.bottomCenter,
               child: SizedBox(
-                height: 200,
-                width: 200,
+                height: 100,
+                width: 150,
                 child: MRive(),
               ),
             )

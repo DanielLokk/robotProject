@@ -35,7 +35,7 @@ class _MRiveState extends State<MRive> {
           final artboard = file.mainArtboard;
           // Add a controller to play back a known animation on the main/default
           // artboard.We store a reference to it so we can toggle playback.
-          artboard.addController(_controller = SimpleAnimation('d to a'));
+          artboard.addController(_controller = SimpleAnimation('a to d'));
           setState(() => _riveArtboard = artboard);
         }
       },
@@ -45,7 +45,8 @@ class _MRiveState extends State<MRive> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
+      child: InkWell(
+        onTap: _togglePlay,
         child: _riveArtboard == null
             ? const SizedBox()
             : Rive(artboard: _riveArtboard, fit: BoxFit.contain),
