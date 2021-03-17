@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
               top: 35,
               child: SizedBox(
                 height: 125,
-                width: 65,
+                width: 58,
                 child: MRive(database: widget.database),
               ),
             )

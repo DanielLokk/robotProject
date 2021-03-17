@@ -68,6 +68,14 @@ class _MRiveState extends State<MRive> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey,
+                spreadRadius: 0.2,
+                offset: Offset.fromDirection(-180, 5))
+          ]),
       child: InkWell(
         onTap: _activateArt,
         child: _riveArtboard == null
