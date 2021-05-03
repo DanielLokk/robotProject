@@ -41,7 +41,14 @@ class _JoyStickState extends State<JoyStick> {
 
   /// Outline decoration box
   var decorationOutline = BoxDecoration(
-    boxShadow: [BoxShadow(spreadRadius: 3.5, color: siscinc)],
+    boxShadow: [
+      BoxShadow(
+          spreadRadius: 0.5,
+          color: rebeliousRed,
+          offset: Offset.fromDirection(-180, 5))
+    ],
+    borderRadius: BorderRadius.all(Radius.circular(5)),
+    border: Border.all(color: Colors.grey[600]),
     color: c4c4c4,
   );
 
@@ -55,7 +62,8 @@ class _JoyStickState extends State<JoyStick> {
     height: 75.0,
     width: 75.0,
     child: RawMaterialButton(
-      shape: CircleBorder(),
+      shape:
+          CircleBorder(side: BorderSide(color: Colors.grey[600], width: 2.5)),
       elevation: 15.0,
       highlightColor: Colors.transparent,
       fillColor: rebeliousRed,
@@ -97,7 +105,7 @@ class _JoyStickState extends State<JoyStick> {
               });
             },
 
-            /// Joystic and Outline
+            /// Joystick and Outline
             child: Stack(
               children: [
                 Container(
