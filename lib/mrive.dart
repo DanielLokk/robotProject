@@ -13,7 +13,7 @@ class MRive extends StatefulWidget {
 }
 
 class _MRiveState extends State<MRive> {
-  bool status = false;
+  bool status = true;
 
   void _togglePlay() {
     setState(() => _controller.isActive = !_controller.isActive);
@@ -28,9 +28,9 @@ class _MRiveState extends State<MRive> {
       status = status == true ? false : true;
       updateData(status);
       if (status) {
-        _riveArtboard.addController(_controller = SimpleAnimation('up'));
-      } else {
         _riveArtboard.addController(_controller = SimpleAnimation('down'));
+      } else {
+        _riveArtboard.addController(_controller = SimpleAnimation('up'));
       }
     });
   }
