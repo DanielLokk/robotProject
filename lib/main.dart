@@ -54,31 +54,40 @@ class _HomePageState extends State<HomePage> {
       /* container to align on the bottom  */
       body: Container(
         decoration: BoxDecoration(
-            /* image: DecorationImage(
-            image: AssetImage("assets/image.png"),
+          image: DecorationImage(
+            image: AssetImage("assets/background_switch.png"),
             fit: BoxFit.cover,
-          ), */
-            ),
+          ),
+        ),
         child: Stack(
           children: <Widget>[
             /// Camera RTC for the moment is not connected to the raspberry
             Positioned(
-              top: 25,
-              left: 125,
-              right: 125,
-              bottom: 25,
+              top: 15,
+              left: 175,
+              right: 175,
+              bottom: 148,
               child: Container(
                 decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(spreadRadius: 3.5, color: siscinc)],
+                    //boxShadow: [BoxShadow(spreadRadius: 3.5, color: siscinc)],
+                    border: Border.all(width: 7, color: lightPurple),
+                    borderRadius: BorderRadius.circular(12)),
+                child: Container(
+                  width: 300,
+                  height: 251,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.zero,
+                    color: c4c4c4,
+                  ),
+                  child: Feed(),
                 ),
-                child: Feed(),
               ),
             ),
 
             /// Joystick left, vertical movement
             Positioned(
-              bottom: 5,
-              left: 100,
+              bottom: 12,
+              left: 160,
               child: JoyStick(
                 database: widget.database,
                 direction: JoyStick.vertical,
@@ -88,8 +97,8 @@ class _HomePageState extends State<HomePage> {
 
             /// Joystick right, horizontal movement
             Positioned(
-              bottom: 5,
-              right: 100,
+              bottom: 12,
+              right: 160,
               child: JoyStick(
                 database: widget.database,
                 direction: JoyStick.vertical,
@@ -98,7 +107,7 @@ class _HomePageState extends State<HomePage> {
             ),
 
             /// Attack / Defense modo
-            Positioned(
+            /* Positioned(
               right: 30,
               top: 35,
               child: SizedBox(
@@ -106,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                 width: 58,
                 child: MRive(database: widget.database),
               ),
-            )
+            ) */
           ],
         ),
       ),
