@@ -43,13 +43,14 @@ class _JoyStickState extends State<JoyStick> {
   var decorationOutline = BoxDecoration(
     boxShadow: [
       BoxShadow(
-          spreadRadius: 0.5,
-          color: rebeliousRed,
-          offset: Offset.fromDirection(-180, 5))
+        spreadRadius: 0,
+        blurRadius: 5,
+        color: siscinc,
+        offset: Offset(0, 3),
+      ),
     ],
-    borderRadius: BorderRadius.all(Radius.circular(5)),
-    border: Border.all(color: Colors.grey[600]),
-    color: c4c4c4,
+    borderRadius: BorderRadius.all(Radius.circular(2)),
+    color: darkPurple,
   );
 
   // Normalizes output between [-1, 1]
@@ -62,11 +63,10 @@ class _JoyStickState extends State<JoyStick> {
     height: 75.0,
     width: 75.0,
     child: RawMaterialButton(
-      shape:
-          CircleBorder(side: BorderSide(color: Colors.grey[600], width: 2.5)),
+      shape: CircleBorder(),
       elevation: 15.0,
       highlightColor: Colors.transparent,
-      fillColor: rebeliousRed,
+      fillColor: lightPurple,
       onPressed: () {},
     ),
   );
@@ -113,20 +113,6 @@ class _JoyStickState extends State<JoyStick> {
                   height: 200,
                   width: 75,
                   decoration: decorationOutline,
-                ),
-
-                /// Arrow up image
-                Positioned(
-                  top: 35,
-                  left: 14,
-                  child: Image(image: AssetImage("assets/Arrow up.png")),
-                ),
-
-                /// Arrow down image
-                Positioned(
-                  bottom: 25,
-                  left: 14,
-                  child: Image(image: AssetImage("assets/Arrow down.png")),
                 ),
 
                 /// Joystick ball

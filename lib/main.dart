@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 decoration: BoxDecoration(
                     //boxShadow: [BoxShadow(spreadRadius: 3.5, color: siscinc)],
-                    border: Border.all(width: 7, color: lightPurple),
+                    border: Border.all(width: 7, color: darkPurple),
                     borderRadius: BorderRadius.circular(12)),
                 child: Container(
                   width: 300,
@@ -104,6 +104,34 @@ class _HomePageState extends State<HomePage> {
                 direction: JoyStick.vertical,
                 motor: "right",
               ),
+            ),
+
+            /// Arrow up image
+            Positioned(
+              bottom: 175,
+              left: 100,
+              child: Image(image: AssetImage("assets/Arrow up.png")),
+            ),
+
+            /// Arrow up image
+            Positioned(
+              bottom: 175,
+              right: 100,
+              child: Image(image: AssetImage("assets/Arrow up.png")),
+            ),
+
+            /// Arrow down image
+            Positioned(
+              bottom: 40,
+              right: 100,
+              child: Image(image: AssetImage("assets/Arrow down.png")),
+            ),
+
+            /// Arrow down image
+            Positioned(
+              bottom: 40,
+              left: 100,
+              child: Image(image: AssetImage("assets/Arrow down.png")),
             ),
 
             /// Attack / Defense modo
