@@ -29,6 +29,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
       ),
       home: HomePage(database: database),
     );
@@ -134,16 +136,36 @@ class _HomePageState extends State<HomePage> {
               child: Image(image: AssetImage("assets/Arrow down.png")),
             ),
 
-            /// Attack / Defense modo
-            /* Positioned(
-              right: 30,
-              top: 35,
-              child: SizedBox(
-                height: 125,
-                width: 58,
-                child: MRive(database: widget.database),
+            /// ON - OFF atack modo
+            Positioned(
+              bottom: 10,
+              left: 438,
+              child: Container(
+                height: 96,
+                width: 50,
+                child: Stack(
+                  children: [
+                    MRive(
+                      database: widget.database,
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          child:
+                              Text("OFF", style: TextStyle(color: darkPurple)),
+                          padding: EdgeInsets.only(left: 11, top: 17),
+                        ),
+                        Container(
+                          child:
+                              Text("ON", style: TextStyle(color: darkPurple)),
+                          padding: EdgeInsets.only(left: 13, top: 27),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ) */
+            )
           ],
         ),
       ),

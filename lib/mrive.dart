@@ -28,9 +28,9 @@ class _MRiveState extends State<MRive> {
       status = status == true ? false : true;
       updateData(status);
       if (status) {
-        _riveArtboard.addController(_controller = SimpleAnimation('d to a'));
+        _riveArtboard.addController(_controller = SimpleAnimation('up'));
       } else {
-        _riveArtboard.addController(_controller = SimpleAnimation('a to d'));
+        _riveArtboard.addController(_controller = SimpleAnimation('down'));
       }
     });
   }
@@ -47,7 +47,7 @@ class _MRiveState extends State<MRive> {
 
     // Load the animation file from the bundle, note that you could also
     // download this. The RiveFile just expects a list of bytes.
-    rootBundle.load('assets/attack_button.riv').then(
+    rootBundle.load('assets/button_on_off.riv').then(
       (data) async {
         final file = RiveFile();
 
@@ -69,20 +69,16 @@ class _MRiveState extends State<MRive> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey,
-                spreadRadius: 0.2,
-                offset: Offset.fromDirection(-180, 5))
-          ]),
-      child: InkWell(
-        onTap: _activateArt,
-        child: _riveArtboard == null
-            ? const SizedBox()
-            : Rive(artboard: _riveArtboard, fit: BoxFit.contain),
+    return Material(
+      elevation: 15.0,
+      color: Colors.transparent,
+      child: Container(
+        child: InkWell(
+          onTap: _activateArt,
+          child: _riveArtboard == null
+              ? const SizedBox()
+              : Rive(artboard: _riveArtboard, fit: BoxFit.contain),
+        ),
       ),
     );
   }
