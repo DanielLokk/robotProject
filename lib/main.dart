@@ -136,6 +136,14 @@ class _HomePageState extends State<HomePage> {
               child: Image(image: AssetImage("assets/Arrow down.png")),
             ),
 
+            /// Ray gun image
+            Positioned(
+                bottom: 110,
+                left: 447,
+                child: Image(
+                  image: AssetImage("assets/ray_gun.png"),
+                )),
+
             /// ON - OFF atack modo
             Positioned(
               bottom: 10,

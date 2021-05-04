@@ -53,6 +53,7 @@ flutter:
     - assets/attack_button.riv
     - assets/background_switch.png
     - assets/button_on_off.riv
+    - assets/ray_gun.png
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
