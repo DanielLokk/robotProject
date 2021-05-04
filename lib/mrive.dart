@@ -49,17 +49,20 @@ class _MRiveState extends State<MRive> {
     // download this. The RiveFile just expects a list of bytes.
     rootBundle.load('assets/attack_button.riv').then(
       (data) async {
-        final file = RiveFile.import(data);
+        final file = RiveFile();
 
         // Load the RiveFile from the binary data.
 
         // The artboard is the root of the animation and gets drawn in the
         // Rive widget.
-        final artboard = file.mainArtboard;
-        // Add a controller to play back a known animation on the main/default
-        // artboard.We store a reference to it so we can toggle playback.
-        //artboard.addController(_controller = SimpleAnimation('a to d'));
-        setState(() => _riveArtboard = artboard);
+        if (file.import(data)) {
+          final artboard = file.mainArtboard;
+          // Add a controller to play back a known animation on the main/default
+          // artboard.We store a reference to it so we can toggle playback.
+          //artboard.addController(_controller = SimpleAnimation('a to d'));
+          //artboard.addController(_controller = SimpleAnimation('d to a'));
+          setState(() => _riveArtboard = artboard);
+        }
       },
     );
   }

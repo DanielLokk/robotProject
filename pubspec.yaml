@@ -29,7 +29,7 @@ dependencies:
   firebase_database: ^6.1.1
   flare_flutter: ^3.0.0
   flutter_mjpeg: ^2.0.0
-  rive: ^0.7.5
+  rive: ^0.6.8
 
 dev_dependencies:
   flutter_test:
