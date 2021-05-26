@@ -63,15 +63,14 @@ class _HomePageState extends State<HomePage> {
         ),
         child: Stack(
           children: <Widget>[
-            /// Camera RTC for the moment is not connected to the raspberry
+            /// Camera for the moment is not connected to the raspberry
             Positioned(
               top: 15,
-              left: 175,
-              right: 175,
+              left: 225,
+              right: 227,
               bottom: 148,
               child: Container(
                 decoration: BoxDecoration(
-                    //boxShadow: [BoxShadow(spreadRadius: 3.5, color: siscinc)],
                     border: Border.all(width: 7, color: darkPurple),
                     borderRadius: BorderRadius.circular(12)),
                 child: Container(
@@ -139,7 +138,7 @@ class _HomePageState extends State<HomePage> {
             /// Ray gun image
             Positioned(
                 bottom: 110,
-                left: 447,
+                left: 405,
                 child: Image(
                   image: AssetImage("assets/ray_gun.png"),
                 )),
@@ -147,7 +146,7 @@ class _HomePageState extends State<HomePage> {
             /// ON - OFF atack modo
             Positioned(
               bottom: 10,
-              left: 438,
+              left: 397,
               child: Container(
                 height: 96,
                 width: 50,
